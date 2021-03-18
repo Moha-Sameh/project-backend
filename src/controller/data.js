@@ -10,8 +10,8 @@ exports.fetchCollege = async (id, next) => {
 
 exports.publicData = async (_, res, next) => {
   try {
-    const colleges = await colleges.findAll();
-    res.json(colleges);
+    const college = await colleges.findAll();
+    res.json(college);
   } catch (error) {
     next(error);
   }

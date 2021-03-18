@@ -8,11 +8,11 @@ const dataRouter = require("./routers/dataRouter");
 //middleware
 app.use(cors());
 
-app.use("/", dataRouter);
+app.use("/colleges", dataRouter);
 // App intialization
 const run = async () => {
   try {
-    await db.sequelize.sync({ force: true });
+    await db.sequelize.sync();
     console.log("Connection to the database successful!");
   } catch (error) {
     console.error("Error connecting to the database: ", error);
