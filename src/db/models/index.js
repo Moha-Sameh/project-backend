@@ -46,6 +46,7 @@ db.Sequelize = Sequelize;
 db.colleges.hasMany(db.students, {
   foreignKey: {
     name: "collegeID",
+    as: "student",
     allowNull: false,
   },
 });
@@ -53,20 +54,19 @@ db.colleges.hasMany(db.students, {
 db.students.belongsTo(db.colleges, {
   foreignKey: {
     name: "collegeID",
-    allowNull: false,
-  },
-});
-
-db.courses.hasMany(db.students, {
-  foreignKey: {
-    name: "collegeID",
+    as: "college",
     allowNull: false,
   },
 });
 
 db.students.belongsToMany(db.courses, {
   through: "section",
-  uniqueKey: "sectionID",
+  as: "courses",
+  foreignKey: "studentId",
 });
-
+db.courses.belongsToMany(db.students, {
+  through: "section",
+  as: "students",
+  foreignKey: "courseId",
+});
 module.exports = db;

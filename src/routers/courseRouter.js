@@ -2,20 +2,20 @@ const express = require("express");
 const router = express.Router();
 const {
   publicData,
-  fetchCollege,
+  fetchcourse,
   createData,
   deleteData,
   updateData,
-} = require("../controller/data");
+} = require("../controller/course");
 
 // router using param
 router.param("id", async (req, res, next, id) => {
-  const college = await fetchCollege(id, next);
-  if (college) {
-    req.college = college;
+  const course = await fetchcourse(id, next);
+  if (course) {
+    req.course = course;
     next();
   } else {
-    const err = new Error("College ID must be wrong please try again");
+    const err = new Error("Course ID must be wrong please try again");
     err.status = 404;
     next(err);
   }

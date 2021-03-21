@@ -1,6 +1,5 @@
 "use strict";
 const { Model } = require("sequelize");
-const SequelizeSlugify = require("sequelize-slugify");
 
 module.exports = (sequelize, DataTypes) => {
   class colleges extends Model {
@@ -21,8 +20,5 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "colleges",
     }
   );
-  SequelizeSlugify.slugifyModel(colleges, {
-    source: ["collegeName"],
-  });
   return colleges;
 };
