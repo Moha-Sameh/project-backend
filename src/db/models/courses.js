@@ -8,9 +8,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   courses.init(
     {
-      courseName: DataTypes.STRING,
-      courseCredit: DataTypes.STRING,
-      courseNumber: DataTypes.STRING,
+      name: DataTypes.STRING,
+      credit: DataTypes.STRING,
+      number: DataTypes.STRING,
     },
     {
       sequelize,

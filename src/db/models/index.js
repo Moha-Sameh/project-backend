@@ -60,13 +60,30 @@ db.students.belongsTo(db.colleges, {
 });
 
 db.students.belongsToMany(db.courses, {
-  through: "section",
+  through: "studentCourses",
   as: "courses",
   foreignKey: "studentId",
 });
 db.courses.belongsToMany(db.students, {
-  through: "section",
+  through: "studentCourses",
   as: "students",
   foreignKey: "courseId",
 });
+
+db.colleges.hasMany(db.courses, {
+  foreignKey: {
+    name: "collegeID",
+    as: "course",
+    allowNull: false,
+  },
+});
+
+db.courses.belongsTo(db.colleges, {
+  foreignKey: {
+    name: "collegeID",
+    as: "college",
+    allowNull: false,
+  },
+});
+
 module.exports = db;

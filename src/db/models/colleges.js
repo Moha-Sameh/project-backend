@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   colleges.init(
     {
-      collegeName: DataTypes.STRING,
-      collegeSection: DataTypes.STRING,
-      collegeEmail: DataTypes.STRING,
-      collegeLocation: DataTypes.STRING,
-      collegeNumber: DataTypes.INTEGER,
+      name: DataTypes.STRING,
+      department: DataTypes.STRING,
+      email: DataTypes.STRING,
+      location: DataTypes.STRING,
+      number: DataTypes.INTEGER,
     },
     {
       sequelize,

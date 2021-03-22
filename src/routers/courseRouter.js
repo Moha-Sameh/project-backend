@@ -7,6 +7,7 @@ const {
   deleteData,
   updateData,
 } = require("../controller/course");
+const { findCollege } = require("../controller/student");
 
 // router using param
 router.param("id", async (req, res, next, id) => {
@@ -22,7 +23,7 @@ router.param("id", async (req, res, next, id) => {
 });
 
 router.get("/", publicData);
-router.post("/", createData);
+router.post("/", findCollege, createData);
 router.delete("/:id", deleteData);
 router.put("/:id", updateData);
 

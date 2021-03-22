@@ -14,11 +14,11 @@ exports.fetchStudent = async (id, next) => {
 exports.publicData = async (_, res, next) => {
   try {
     const student = await students.findAll({
-      attributes: ["id", "firstName"],
+      attributes: ["id", "firstName", "lastName"],
       include: {
         model: colleges,
         as: "college",
-        attributes: { exclude: ["createdAt", "updatedAt"] },
+        attributes: { exclude: ["createdAt", "updatedAt", "collegeEmail"] },
       },
     });
     res.json(student);
@@ -27,10 +27,24 @@ exports.publicData = async (_, res, next) => {
   }
 };
 
+//Middleware for finding college
+exports.findCollege = async (req, res, next) => {
+  try {
+    const college = await colleges.findOne({
+      where: {
+        name: req.body.college,
+      },
+    });
+    req.college = college;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 //createData function used to add data into students table
 exports.createData = async (req, res, next) => {
   try {
-    req.body.collegeID = req.colleges.id;
+    req.body.collegeID = req.college.id;
     const newStudent = await students.create(req.body);
     res.status(201).json(newStudent);
   } catch (error) {
@@ -54,22 +68,6 @@ exports.updateData = async (req, res, next) => {
     await req.student.update(req.body);
     res.status(204).end();
   } catch (err) {
-    next(error);
-  }
-};
-
-exports.findById = async (req, res, next, id) => {
-  try {
-    const student = await students.findByPk(id, {
-      attributes: ["id", "firstName"],
-      include: {
-        model: colleges,
-        as: "college",
-        attributes: { exclude: ["createdAt", "updatedAt"] },
-      },
-    });
-    res.json(student);
-  } catch (error) {
     next(error);
   }
 };

@@ -23,6 +23,7 @@ exports.publicData = async (_, res, next) => {
 //createData function used to add data into Courses table
 exports.createData = async (req, res, next) => {
   try {
+    req.body.collegeID = req.college.id;
     const newCourse = await courses.create(req.body);
     res.status(201).json(newCourse);
   } catch (error) {
